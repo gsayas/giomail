@@ -1,0 +1,5 @@
+-- CreateTable
+CREATE TABLE "Email" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "subject" TEXT NOT NULL
+);

@@ -11,9 +11,9 @@ import {
 interface Email {
     id: number;
     subject: string;
-    sender: string;
-    body: string;
-    tags: string[]; //TODO: Create a Tag type
+    // sender: string;
+    // body: string;
+    // tags: string[]; //TODO: Create a Tag type
 }
 
 interface EmailListItemProps {
@@ -25,11 +25,11 @@ export default function EmailListItem({ email }: EmailListItemProps) {
         <div className="email-list-item p-4 border-b border-gray-200">
             <Card>
                 <CardHeader>
-                    <CardTitle>{email.sender}</CardTitle>
+                    <CardTitle>{email.subject}</CardTitle>
                     {email.subject}
                 </CardHeader>
                 <CardContent>
-                    <CardDescription>{email.body}</CardDescription>
+                    <CardDescription>{email.subject}</CardDescription>
                 </CardContent>
                 <CardFooter>
 
