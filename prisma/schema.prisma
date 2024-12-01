@@ -16,4 +16,5 @@ model Email {
   subject String
   sender  String @default("anonymous")
   body    String @default("")
+  read    Boolean @default(false)
 }
