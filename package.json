@@ -12,6 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@babel/preset-react": "^7.25.9",
     "@prisma/client": "^6.0.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.1",
@@ -69,8 +70,7 @@
       "<rootDir>.*/public"
     ],
     "transform": {
-      "^.+\\.(ts|tsx)?$": "ts-jest",
-      "^.+\\.(js|jsx)$": "babel-jest"
+      "^.+\\.(ts|tsx)?$": "ts-jest"
     },
     "moduleNameMapper": {
       "^~(.*)$": "<rootDir>/app/$1"
@@ -79,7 +79,8 @@
   "babel": {
     "presets": [
       "@babel/preset-env",
-      "@babel/preset-typescript"
+      "@babel/preset-typescript",
+      "@babel/preset-react"
     ]
   },
   "engines": {

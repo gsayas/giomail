@@ -9,13 +9,28 @@ import {
 } from "~/components/ui/card";
 import { Email } from '@prisma/client';
 
-interface EmailListItemProps {
+interface EmailDetailProps {
     email: Email;
 }
 
-export default function EmailListItem({ email }: EmailListItemProps) {
+export default function EmailDetail({ email }: EmailDetailProps) {
+    const markAsUnread = async () => {
+        await fetch("/mark-as-unread", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ emailId: email.id }),
+        });
+    };
+
     return (
-        <div className="email-list-item p-4 border-b border-gray-200" role="listitem">
+        <div className="p-4 border-b border-gray-200">
+            <button onClick={markAsUnread}>
+                <span className="material-symbols-outlined" >
+                mark_email_unread
+            </span>
+            </button>
             <Card>
                 <CardHeader>
                     <CardTitle>{email.subject}</CardTitle>
