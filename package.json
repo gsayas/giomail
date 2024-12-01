@@ -58,6 +58,22 @@
     "vite": "^5.1.0",
     "vite-tsconfig-paths": "^4.2.1"
   },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom",
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "\\.cache",
+      "<rootDir>.*/public"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)?$": "ts-jest",
+      "^.+\\.(js|jsx)$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "^~(.*)$": "<rootDir>/app/$1"
+    }
+  },
   "babel": {
     "presets": [
       "@babel/preset-env",
