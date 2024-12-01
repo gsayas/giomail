@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import EmailList from '~/components/email/EmailList';
+import EmailList from '~/components/email-list/EmailList';
 import { Email } from '@prisma/client';
 
 const mockEmails: Email[] = [
@@ -9,7 +9,7 @@ const mockEmails: Email[] = [
     { id: 2, subject: 'Test Email 2', body: 'Test Email 2 Body', sender: 'Grandma Josephine', read: true },
 ];
 
-test('renders email list', () => {
+test('renders email-list list', () => {
     render(<EmailList emails={mockEmails} />);
 
     const emailItems = screen.getAllByRole('listitem');

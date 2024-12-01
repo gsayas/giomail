@@ -7,13 +7,14 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card"
-import { Email } from '@prisma/client'
+import {Email} from '@prisma/client'
+import Excerpt from "~/components/email-detail/Excerpt";
 
 interface EmailListItemProps {
     email: Email;
 }
 
-export default function EmailListItem({ email }: EmailListItemProps) {
+export default function EmailListItem({email}: EmailListItemProps) {
     return (
         <div className="email-list-item p-4 border-b border-gray-200" role="listitem">
             <Card>
@@ -22,7 +23,9 @@ export default function EmailListItem({ email }: EmailListItemProps) {
                     {email.sender}
                 </CardHeader>
                 <CardContent>
-                    <CardDescription>{email.body}</CardDescription>
+                    <CardDescription>
+                        <Excerpt text={email.body} maxLength={20}/>
+                    </CardDescription>
                 </CardContent>
                 <CardFooter>
 
