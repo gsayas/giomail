@@ -9,6 +9,7 @@ import {
 } from "~/components/ui/card";
 import type {Email} from "~/lib/types";
 import { Badge } from "~/components/ui/badge";
+import {MailQuestion} from "lucide-react";
 
 interface EmailListItemProps {
     email: Email;
@@ -61,9 +62,7 @@ export default function EmailDetail({ email }: EmailListItemProps) {
     return (
         <div className="email-list-item p-4 border-b border-gray-200" role="listitem">
             <button onClick={markAsUnread}>
-                <span className="material-symbols-outlined">
-                mark_email_unread
-            </span>
+                <MailQuestion />
             </button>
             <Card>
                 <CardHeader>

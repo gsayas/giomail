@@ -69,7 +69,7 @@
       "node_modules",
       "\\.cache",
       "<rootDir>.*/public",
-        "<rootDir>/cypress"
+      "<rootDir>/cypress"
     ],
     "transform": {
       "^.+\\.(ts|tsx)?$": "ts-jest"

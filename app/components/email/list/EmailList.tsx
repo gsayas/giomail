@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import EmailListItem from "./EmailListItem";
 import EmailDetail from "~/components/email/detail/EmailDetail";
-import type {Email} from "~/lib/types";
+import type { Email } from "~/lib/types";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components/ui/tabs";
 
 export default function EmailList({ emails }: { emails: Email[] }) {
     const [selectedTab, setSelectedTab] = useState<string>('all');
     const [selectedEmail, setSelectedEmail] = useState<Email | null>(null);
+    const [unreadEmails, setUnreadEmails] = useState<Email[]>(emails.filter(email => !email.read));
 
-    const unreadEmails = emails.filter(email => !email.read);
 
     useEffect(() => {
         const currentEmails = selectedTab === 'all' ? emails : unreadEmails;
@@ -16,6 +16,26 @@ export default function EmailList({ emails }: { emails: Email[] }) {
             setSelectedEmail(null);
         }
     }, [selectedTab, emails, unreadEmails, selectedEmail]);
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+        if (selectedEmail && !selectedEmail.read) {
+            timer = setTimeout(async () => {
+                setUnreadEmails(prev => prev.filter(email => email.id !== selectedEmail.id));
+                setSelectedEmail(prev => prev ? { ...prev, read: true } : null);
+
+                // Call the API to update the email's read status in the backend
+                await fetch('/email/read', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ emailId: selectedEmail.id }),
+                });
+            }, 3000);
+        }
+        return () => clearTimeout(timer);
+    }, [selectedEmail]);
 
     const renderEmails = (emailsToRender: Email[]) => (
         emailsToRender && emailsToRender.map((email) => (
