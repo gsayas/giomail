@@ -17,16 +17,10 @@ export async function markAsUnread(emailId: number) {
     });
 }
 
-//update email with new Tag
-export async function addTagToEmail(emailId: number, tagName: string) {
-    let tag = await prisma.tag.findUnique({ where: { name: tagName } });
-    if (!tag) {
-        tag = await prisma.tag.create({ data: { name: tagName } });
-    }
-
+//mark email as unread
+export async function markAsRead(emailId: number) {
     return prisma.email.update({
         where: { id: emailId },
-        data: { tags: { connect: { id: tag.id } } },
-        include: { tags: true },
+        data: { read: true },
     });
 }

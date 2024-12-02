@@ -1,4 +1,4 @@
-import { addTagToEmail } from "~/lib/db/email";
+import { addTagToEmail } from "~/lib/db/tag";
 
 export const action = async ({ request }: { request: Request }) => {
     const { emailId, tagName } = await request.json();
