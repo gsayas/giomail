@@ -5,12 +5,10 @@ interface ExcerptProps {
     maxLength: number;
 }
 
-const Excerpt: React.FC<ExcerptProps> = ({ text, maxLength }) => {
+export default function Excerpt ({ text, maxLength }: ExcerptProps) {
     return (
         <span>
             {text.length > maxLength ? `${text.substring(0, maxLength)}...` : text}
         </span>
     );
 };
-
-export default Excerpt;
