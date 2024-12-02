@@ -1,11 +1,23 @@
 import { prisma } from "./prisma";
 
-//check if Tag already exists
-export async function tagExists(tagName: string) {
+//update email with new Tag
+export async function addTagToEmail(emailId: number, tagName: string) {
+    let tag = await findTagByName(tagName);
+    if (!tag) {
+        tag = await createTag(tagName);
+    }
+
+    return prisma.email.update({
+        where: { id: emailId },
+        data: { tags: { connect: { id: tag.id } } },
+        include: { tags: true },
+    });
+}
+
+async function findTagByName(tagName: string) {
     return prisma.tag.findUnique({ where: { name: tagName } });
 }
 
-//create a new Tag
-export async function createTag(tagName: string) {
+async function createTag(tagName: string) {
     return prisma.tag.create({ data: { name: tagName } });
 }
