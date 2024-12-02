@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import EmailListItem from "./EmailListItem";
 import EmailDetail from "../email-detail/EmailDetail";
-import { Email } from "@prisma/client";
+import { Email as PrismaEmail, Tag } from '@prisma/client';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components/ui/tabs";
+
+interface Email extends PrismaEmail {
+    tags: Tag[];
+}
 
 export default function EmailList({ emails }: { emails: Email[] }) {
     const [selectedTab, setSelectedTab] = useState<string>('all');

@@ -12,9 +12,16 @@ datasource db {
 
 
 model Email {
-  id    Int     @id @default(autoincrement())
+  id    Int    @id @default(autoincrement())
   subject String
-  sender  String @default("anonymous")
-  body    String @default("")
+  body    String
+  sender  String
   read    Boolean @default(false)
+  tags    Tag[]   @relation("EmailTags")
+}
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  emails Email[] @relation("EmailTags")
 }
