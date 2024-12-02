@@ -2,11 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import EmailList from '~/components/email/list/EmailList';
-import { Email as PrismaEmail, Tag } from '@prisma/client';
-
-interface Email extends PrismaEmail {
-    tags: Tag[];
-}
+import type {Email} from "~/lib/types";
 
 const mockEmails: Email[] = [
     { id: 1, subject: 'Test Email 1', body: 'Test Email 1 Body', sender: 'Grandpa Joe', read: false, tags: [] },

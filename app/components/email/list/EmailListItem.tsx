@@ -7,7 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card"
-import {Email} from '@prisma/client'
+import type {Email} from "~/lib/types";
 import Excerpt from "~/components/email/list/Excerpt";
 
 interface EmailListItemProps {

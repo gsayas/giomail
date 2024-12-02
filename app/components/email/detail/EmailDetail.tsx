@@ -7,11 +7,11 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
-import { Email, Tag } from "@prisma/client";
+import type {Email} from "~/lib/types";
 import { Badge } from "~/components/ui/badge";
 
 interface EmailListItemProps {
-    email: Email & { tags: Tag[] };
+    email: Email;
 }
 
 export default function EmailDetail({ email }: EmailListItemProps) {
