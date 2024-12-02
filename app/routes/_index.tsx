@@ -3,8 +3,8 @@ import {
     LoaderFunction
 } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import {getEmails} from "~/lib/emails.server";
-import EmailList from "~/components/email-list/EmailList";
+import {getEmails} from "~/lib/db/email";
+import EmailList from "~/components/email/list/EmailList";
 import { Email } from '@prisma/client'
 
 

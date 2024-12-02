@@ -1,4 +1,4 @@
-import { prisma } from "./prisma.server";
+import { prisma } from "./prisma";
 
 //check if Tag already exists
 export async function tagExists(tagName: string) {

@@ -1,4 +1,4 @@
-import { prisma } from "./prisma.server";
+import { prisma } from "./prisma";
 
 //get all emails
 export async function getEmails() {

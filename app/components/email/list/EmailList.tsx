@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import EmailListItem from "./EmailListItem";
-import EmailDetail from "../email-detail/EmailDetail";
+import EmailDetail from "~/components/email/detail/EmailDetail";
 import { Email as PrismaEmail, Tag } from '@prisma/client';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components/ui/tabs";
 

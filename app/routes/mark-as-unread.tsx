@@ -1,4 +1,4 @@
-import {markAsUnread} from "~/lib/emails.server";
+import {markAsUnread} from "~/lib/db/email";
 
 export const action = async ({ request }: {request: Request}) => {
     const { emailId } = await request.json();

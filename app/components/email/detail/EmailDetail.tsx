@@ -8,14 +8,13 @@ import {
     CardTitle,
 } from "~/components/ui/card";
 import { Email, Tag } from "@prisma/client";
-import Excerpt from "~/components/email-detail/Excerpt";
 import { Badge } from "~/components/ui/badge";
 
 interface EmailListItemProps {
     email: Email & { tags: Tag[] };
 }
 
-export default function EmailListItem({ email }: EmailListItemProps) {
+export default function EmailDetail({ email }: EmailListItemProps) {
     const [newTag, setNewTag] = useState("");
     const [tags, setTags] = useState(email.tags);
 
@@ -73,7 +72,7 @@ export default function EmailListItem({ email }: EmailListItemProps) {
                 </CardHeader>
                 <CardContent>
                     <CardDescription>
-                        <Excerpt text={email.body} maxLength={20}/>
+                        {email.body}
                     </CardDescription>
                 </CardContent>
                 <CardFooter>
