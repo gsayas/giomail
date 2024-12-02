@@ -68,7 +68,8 @@
     "testPathIgnorePatterns": [
       "node_modules",
       "\\.cache",
-      "<rootDir>.*/public"
+      "<rootDir>.*/public",
+        "<rootDir>/cypress"
     ],
     "transform": {
       "^.+\\.(ts|tsx)?$": "ts-jest"

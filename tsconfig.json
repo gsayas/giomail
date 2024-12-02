@@ -8,8 +8,16 @@
     "**/.client/**/*.tsx"
   ],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["@remix-run/node", "vite/client", "jest"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2022"
+    ],
+    "types": [
+      "@remix-run/node",
+      "vite/client",
+      "jest"
+    ],
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
@@ -23,10 +31,18 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"]
+      "~/*": [
+        "./app/*"
+      ]
     },
-
     // Vite takes care of building everything, not tsc.
     "noEmit": true
-  }
+  },
+  "exclude": [
+    "./cypress.config.ts",
+    //other exclusions that may help https://github.com/cypress-io/cypress/issues/22059#issuecomment-1428298264
+    "node_modules",
+    "cypress",
+    "**/*.cy.tsx"
+  ]
 }
