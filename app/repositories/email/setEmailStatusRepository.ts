@@ -1,13 +1,4 @@
-import { prisma } from "./prisma";
-
-//get all emails
-export async function getEmails() {
-    return prisma.email.findMany({
-        include: {
-            tags: true,
-        },
-    });
-}
+import { prisma } from "~/lib/db/prisma";
 
 //mark email as unread
 export async function markAsUnread(emailId: number) {
