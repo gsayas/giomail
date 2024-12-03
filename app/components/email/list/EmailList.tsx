@@ -51,7 +51,7 @@ export default function EmailList({ emails }: { emails: Email[] }) {
         const emailsToRender = filterUnread ? getUnreadEmails() : emailList;
         return emailsToRender && emailsToRender.map((email) => (
             <div key={email.id} onClick={() => setSelectedEmail(email)}>
-                <EmailListItem email={email}/>
+                <EmailListItem email={email} onEmailUpdate={handleEmailUpdate}/>
             </div>
         ));
     }

@@ -9,9 +9,11 @@ import {
 } from "~/components/ui/card";
 import type {Email} from "~/lib/types";
 import Excerpt from "~/components/email/list/Excerpt";
+import {Badge} from "~/components/ui/badge";
 
 interface EmailListItemProps {
     email: Email;
+    onEmailUpdate: (updatedEmail: Email) => void;
 }
 
 const unreadIcon = () => {
@@ -20,7 +22,23 @@ const unreadIcon = () => {
     )
 }
 
-export default function EmailListItem({ email }: EmailListItemProps) {
+export default function EmailListItem({ email, onEmailUpdate }: EmailListItemProps) {
+
+    const removeTag = async (tagId: number) => {
+        const response = await fetch("/email/tag/remove", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ emailId: email.id, tagId }),
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            onEmailUpdate(result.email);
+        }
+    };
+
     return (
         <div className={`email-list-item p-4 border-b border-gray-200`} role="listitem">
             <Card>
@@ -34,6 +52,13 @@ export default function EmailListItem({ email }: EmailListItemProps) {
                     </CardDescription>
                 </CardContent>
                 <CardFooter>
+                    <div className="tags">
+                        {email.tags && email.tags.map((tag) => (
+                            <Badge key={tag.id} onClick={() => removeTag(tag.id)}>
+                                {tag.name}
+                            </Badge>
+                        ))}
+                    </div>
                 </CardFooter>
             </Card>
         </div>

@@ -14,6 +14,15 @@ export async function addTagToEmail(emailId: number, tagName: string) {
     });
 }
 
+//remove tag from email
+export async function removeTagFromEmail(emailId: number, tagId: number) {
+    return prisma.email.update({
+        where: { id: emailId },
+        data: { tags: { disconnect: { id: tagId } } },
+        include: { tags: true },
+    });
+}
+
 async function findTagByName(tagName: string) {
     return prisma.tag.findUnique({ where: { name: tagName } });
 }

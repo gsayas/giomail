@@ -8,7 +8,6 @@ import {
     CardTitle,
 } from "~/components/ui/card";
 import type { Email } from "~/lib/types";
-import { Badge } from "~/components/ui/badge";
 import { MailQuestion } from "lucide-react";
 
 interface EmailDetailProps {
@@ -18,7 +17,6 @@ interface EmailDetailProps {
 
 export default function EmailDetail({ email, onEmailUpdate }: EmailDetailProps) {
     const [newTag, setNewTag] = useState("");
-    const [tags, setTags] = useState(email.tags);
 
     const markAsUnread = async () => {
         const response = await fetch("/email/unread", {
@@ -46,22 +44,8 @@ export default function EmailDetail({ email, onEmailUpdate }: EmailDetailProps) 
 
         if (response.ok) {
             const result = await response.json();
-            setTags(result.email.tags);
+            onEmailUpdate(result.email);
             setNewTag("");
-        }
-    };
-
-    const removeTag = async (tagId: number) => {
-        const response = await fetch("/api/removeTag", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ emailId: email.id, tagId }),
-        });
-
-        if (response.ok) {
-            setTags(tags.filter(tag => tag.id !== tagId));
         }
     };
 
@@ -81,13 +65,6 @@ export default function EmailDetail({ email, onEmailUpdate }: EmailDetailProps) 
                     </CardDescription>
                 </CardContent>
                 <CardFooter>
-                    <div className="tags">
-                        {tags && tags.map((tag) => (
-                            <Badge key={tag.id} onClick={() => removeTag(tag.id)}>
-                                {tag.name}
-                            </Badge>
-                        ))}
-                    </div>
                     <div className="add-tag">
                         <input
                             type="text"
