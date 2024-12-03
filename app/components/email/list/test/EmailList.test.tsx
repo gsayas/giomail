@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import EmailList from '~/components/email/list/EmailList';
-import type {Email} from "~/lib/types";
+import type {Email} from "~/domain/Email";
 
 const mockEmails: Email[] = [
     { id: 1, subject: 'Test Email 1', body: 'Test Email 1 Body', sender: 'Grandpa Joe', read: false, tags: [] },

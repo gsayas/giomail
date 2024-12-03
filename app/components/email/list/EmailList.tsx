@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import EmailListItem from "./EmailListItem";
 import EmailDetail from "~/components/email/detail/EmailDetail";
-import type { Email } from "~/lib/types";
+import type { Email } from "~/domain/Email";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components/ui/tabs";
 
 export default function EmailList({ emails }: { emails: Email[] }) {

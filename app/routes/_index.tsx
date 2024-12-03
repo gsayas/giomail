@@ -5,7 +5,7 @@ import {
 import {useLoaderData} from '@remix-run/react'
 import {getEmailsUseCase} from "~/usecases/email/getEmailsUseCase";
 import EmailList from "~/components/email/list/EmailList";
-import type {Email} from "~/lib/types";
+import type {Email} from "~/domain/Email";
 
 export const meta: MetaFunction = () => {
     return [

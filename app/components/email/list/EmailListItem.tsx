@@ -7,7 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
-import type {Email} from "~/lib/types";
+import type {Email} from "~/domain/Email";
 import Excerpt from "~/components/email/list/Excerpt";
 import {Badge} from "~/components/ui/badge";
 

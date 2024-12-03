@@ -15,7 +15,7 @@ import {
 } from "~/components/ui/tooltip"
 import { Input } from "~/components/ui/input"
 import { Button } from "~/components/ui/button"
-import type { Email } from "~/lib/types";
+import type { Email } from "~/domain/Email";
 import MailUnreadLineIcon from 'remixicon-react/MailUnreadLineIcon';
 
 interface EmailDetailProps {
