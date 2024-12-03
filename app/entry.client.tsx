@@ -16,3 +16,4 @@ startTransition(() => {
     </StrictMode>
   );
 });
+window.hydration_observer.disconnect();

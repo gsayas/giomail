@@ -9,9 +9,7 @@ describe('Email List', () => {
 
     it('should filter unread emails', () => {
         cy.contains('Unread').click();
-        // cy.get('.email-list-item').each(($el) => {
-        //     cy.wrap($el).contains('Unread');
-        // });
+        cy.get('.email-list-item').should('have.length', 0);
     });
 
     it('should display email details on click', () => {

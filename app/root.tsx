@@ -29,21 +29,64 @@ export const links: LinksFunction = () => [
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-      </body>
+    <head>
+      <meta charSet="utf-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <Meta/>
+      <Links/>
+
+    {/*workaround for remix + react hydration issue
+      https://github.com/remix-run/remix/issues/4822*/}
+      <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              const observerConfig = {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeOldValue: true,
+                characterData: true,
+                characterDataOldValue: true,
+              };
+              window.hydration_observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                  switch (mutation.type) {
+                    case 'childList': {
+                      window.hydration_observer.disconnect();
+                      mutation.addedNodes.forEach((node) => {
+                        try {
+                        mutation.target.removeChild(node);
+                        } catch (e) {
+                          console.error(e);
+                        }
+                      });
+                      window.hydration_observer.observe(document, observerConfig);
+                      break;
+                    }
+                    case 'attributes': {
+                      mutation.target.removeAttribute(mutation.attributeName);
+                      break;
+                    }
+                  }
+                });
+                
+              });
+              window.addEventListener('DOMContentLoaded', () => {
+                window.hydration_observer.observe(document, observerConfig);
+              });
+            `,
+          }}
+      />
+    </head>
+    <body>
+    {children}
+    <ScrollRestoration/>
+    <Scripts/>
+    </body>
     </html>
   );
 }
 
 export default function App() {
-  return <Outlet />;
+  return <Outlet/>;
 }
