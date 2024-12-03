@@ -1,4 +1,4 @@
-import { prisma } from "~/lib/db/prisma";
+import { prisma } from "~/lib/prisma";
 
 //mark email as unread
 export async function markAsUnread(emailId: number) {

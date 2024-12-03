@@ -1,4 +1,4 @@
-import { prisma } from "./prisma";
+import { prisma } from "~/lib/prisma";
 
 //update email with new Tag
 export async function addTagToEmail(emailId: number, tagName: string) {
@@ -10,15 +10,6 @@ export async function addTagToEmail(emailId: number, tagName: string) {
     return prisma.email.update({
         where: { id: emailId },
         data: { tags: { connect: { id: tag.id } } },
-        include: { tags: true },
-    });
-}
-
-//remove tag from email
-export async function removeTagFromEmail(emailId: number, tagId: number) {
-    return prisma.email.update({
-        where: { id: emailId },
-        data: { tags: { disconnect: { id: tagId } } },
         include: { tags: true },
     });
 }
