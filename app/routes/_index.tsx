@@ -3,7 +3,7 @@ import {
     LoaderFunction
 } from '@remix-run/node'
 import {useLoaderData} from '@remix-run/react'
-import {getEmails} from "~/lib/db/email";
+import {getEmailsUseCase} from "~/usecases/email/getEmailsUseCase";
 import EmailList from "~/components/email/list/EmailList";
 import type {Email} from "~/lib/types";
 
@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async () => {
-    const emails = await getEmails();
+    const emails = await getEmailsUseCase();
     return Response.json({emails});
 };
 
