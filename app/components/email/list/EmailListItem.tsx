@@ -10,16 +10,11 @@ import {
 import type {Email} from "~/domain/Email";
 import Excerpt from "~/components/email/list/Excerpt";
 import {Badge} from "~/components/ui/badge";
+import {UnreadIcon} from "~/components/ui/icons";
 
 interface EmailListItemProps {
     email: Email;
     onEmailUpdate: (updatedEmail: Email) => void;
-}
-
-const unreadIcon = () => {
-    return (
-        <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500"/>
-    )
 }
 
 export default function EmailListItem({email, onEmailUpdate}: EmailListItemProps) {
@@ -40,10 +35,10 @@ export default function EmailListItem({email, onEmailUpdate}: EmailListItemProps
     };
 
     return (
-        <div className={`email-list-item pt-2`} role="listitem">
+        <div className={`email-list-item pt-2 cursor-pointer`} role="listitem">
             <Card>
                 <CardHeader>
-                    <CardTitle className={`flex gap-2`}>{email.subject}{!email.read && unreadIcon()}</CardTitle>
+                    <CardTitle className={`flex gap-2`}>{email.subject}{!email.read && <UnreadIcon />}</CardTitle>
                     {email.sender}
                 </CardHeader>
                 <CardContent>
