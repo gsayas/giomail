@@ -7,8 +7,16 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "~/components/ui/tooltip"
+import { Input } from "~/components/ui/input"
+import { Button } from "~/components/ui/button"
 import type { Email } from "~/lib/types";
-import { MailQuestion } from "lucide-react";
+import MailUnreadLineIcon from 'remixicon-react/MailUnreadLineIcon';
 
 interface EmailDetailProps {
     email: Email;
@@ -50,14 +58,23 @@ export default function EmailDetail({ email, onEmailUpdate }: EmailDetailProps) 
     };
 
     return (
-        <div className="email-list-item p-4 border-b border-gray-200" role="listitem">
-            <button onClick={markAsUnread}>
-                <MailQuestion />
-            </button>
+        <div className="email-detail mt-5">
+            <TooltipProvider delayDuration={300} >
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <button onClick={markAsUnread} title={'Mark as unread'}>
+                            <MailUnreadLineIcon/>
+                        </button>
+                    </TooltipTrigger>
+                    <TooltipContent align={'start'}>
+                        <p>Mark as unread</p>
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
             <Card>
                 <CardHeader>
-                    <CardTitle>{email.subject}</CardTitle>
-                    {email.sender}
+                    <CardTitle>Subject: {email.subject}</CardTitle>
+                    From: {email.sender}
                 </CardHeader>
                 <CardContent>
                     <CardDescription>
@@ -65,14 +82,9 @@ export default function EmailDetail({ email, onEmailUpdate }: EmailDetailProps) 
                     </CardDescription>
                 </CardContent>
                 <CardFooter>
-                    <div className="add-tag">
-                        <input
-                            type="text"
-                            value={newTag}
-                            onChange={(e) => setNewTag(e.target.value)}
-                            placeholder="Add a tag"
-                        />
-                        <button onClick={addTag}>Add</button>
+                    <div className="add-tag flex gap-1">
+                        <Input value={newTag} onChange={(e) => setNewTag(e.target.value)} placeholder="i.e: work" />
+                        <Button onClick={addTag}>Add tag</Button>
                     </div>
                 </CardFooter>
             </Card>

@@ -57,8 +57,8 @@ export default function EmailList({ emails }: { emails: Email[] }) {
     }
 
     return (
-        <div className="email-list-container flex">
-            <div className="email-list w-1/2">
+        <div className="email-list-container flex w-full gap-3" >
+            <div className="email-list w-2/5">
                 <Tabs value={selectedTab} onValueChange={setSelectedTab}>
                     <TabsList>
                         <TabsTrigger value="all">All mail</TabsTrigger>
@@ -72,7 +72,7 @@ export default function EmailList({ emails }: { emails: Email[] }) {
                     </TabsContent>
                 </Tabs>
             </div>
-            <div className="email-detail w-1/2">
+            <div className="email-detail w-3/5">
                 {selectedEmail && <EmailDetail email={selectedEmail} onEmailUpdate={handleEmailUpdate} />}
             </div>
         </div>

@@ -22,7 +22,7 @@ const unreadIcon = () => {
     )
 }
 
-export default function EmailListItem({ email, onEmailUpdate }: EmailListItemProps) {
+export default function EmailListItem({email, onEmailUpdate}: EmailListItemProps) {
 
     const removeTag = async (tagId: number) => {
         const response = await fetch("/email/tag/remove", {
@@ -30,7 +30,7 @@ export default function EmailListItem({ email, onEmailUpdate }: EmailListItemPro
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ emailId: email.id, tagId }),
+            body: JSON.stringify({emailId: email.id, tagId}),
         });
 
         if (response.ok) {
@@ -40,25 +40,23 @@ export default function EmailListItem({ email, onEmailUpdate }: EmailListItemPro
     };
 
     return (
-        <div className={`email-list-item p-4 border-b border-gray-200`} role="listitem">
+        <div className={`email-list-item pt-2`} role="listitem">
             <Card>
                 <CardHeader>
-                    <CardTitle>{!email.read && unreadIcon()}{email.subject}</CardTitle>
+                    <CardTitle className={`flex gap-2`}>{email.subject}{!email.read && unreadIcon()}</CardTitle>
                     {email.sender}
                 </CardHeader>
                 <CardContent>
                     <CardDescription>
-                        <Excerpt text={email.body} maxLength={20} />
+                        <Excerpt text={email.body} maxLength={20}/>
                     </CardDescription>
                 </CardContent>
-                <CardFooter>
-                    <div className="tags">
-                        {email.tags && email.tags.map((tag) => (
-                            <Badge key={tag.id} onClick={() => removeTag(tag.id)}>
-                                {tag.name}
-                            </Badge>
-                        ))}
-                    </div>
+                <CardFooter className="tags flex gap-1 flex-wrap">
+                    {email.tags && email.tags.map((tag) => (
+                        <Badge key={tag.id} onClick={() => removeTag(tag.id)} className="cursor-pointer">
+                            {tag.name}
+                        </Badge>
+                    ))}
                 </CardFooter>
             </Card>
         </div>
