@@ -16,4 +16,8 @@ startTransition(() => {
     </StrictMode>
   );
 });
+
+// workaround for react + remix hydration issue
+// https://github.com/remix-run/remix/issues/4822
+// @ts-ignore
 window.hydration_observer.disconnect();

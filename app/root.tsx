@@ -35,8 +35,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <Meta/>
       <Links/>
 
-    {/*workaround for remix + react hydration issue
-      https://github.com/remix-run/remix/issues/4822*/}
+    {/*  workaround for remix + react hydration issue
+         https://github.com/remix-run/remix/issues/4822  */}
       <script
           dangerouslySetInnerHTML={{
             __html: `
