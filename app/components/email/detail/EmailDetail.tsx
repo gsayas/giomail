@@ -7,26 +7,32 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
-import type {Email} from "~/lib/types";
+import type { Email } from "~/lib/types";
 import { Badge } from "~/components/ui/badge";
-import {MailQuestion} from "lucide-react";
+import { MailQuestion } from "lucide-react";
 
-interface EmailListItemProps {
+interface EmailDetailProps {
     email: Email;
+    onEmailUpdate: (updatedEmail: Email) => void;
 }
 
-export default function EmailDetail({ email }: EmailListItemProps) {
+export default function EmailDetail({ email, onEmailUpdate }: EmailDetailProps) {
     const [newTag, setNewTag] = useState("");
     const [tags, setTags] = useState(email.tags);
 
     const markAsUnread = async () => {
-        await fetch("/mark-as-unread", {
+        const response = await fetch("/email/unread", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ emailId: email.id }),
         });
+
+        if (response.ok) {
+            const result = await response.json();
+            onEmailUpdate(result.email);
+        }
     };
 
     const addTag = async () => {

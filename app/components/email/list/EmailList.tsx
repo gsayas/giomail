@@ -7,43 +7,54 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components/ui/tabs";
 export default function EmailList({ emails }: { emails: Email[] }) {
     const [selectedTab, setSelectedTab] = useState<string>('all');
     const [selectedEmail, setSelectedEmail] = useState<Email | null>(null);
-    const [unreadEmails, setUnreadEmails] = useState<Email[]>(emails.filter(email => !email.read));
-
-
-    useEffect(() => {
-        const currentEmails = selectedTab === 'all' ? emails : unreadEmails;
-        if (selectedEmail && !currentEmails.some(email => email.id === selectedEmail.id)) {
-            setSelectedEmail(null);
-        }
-    }, [selectedTab, emails, unreadEmails, selectedEmail]);
+    const [emailList, setEmailList] = useState<Email[]>(emails);
 
     useEffect(() => {
         let timer: NodeJS.Timeout;
         if (selectedEmail && !selectedEmail.read) {
             timer = setTimeout(async () => {
-                setUnreadEmails(prev => prev.filter(email => email.id !== selectedEmail.id));
                 setSelectedEmail(prev => prev ? { ...prev, read: true } : null);
 
                 // Call the API to update the email's read status in the backend
-                await fetch('/email/read', {
-                    method: 'POST',
+                const response = await fetch("/email/read", {
+                    method: "POST",
                     headers: {
-                        'Content-Type': 'application/json',
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify({ emailId: selectedEmail.id }),
                 });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    handleEmailUpdate(result.email);
+                }
             }, 3000);
         }
         return () => clearTimeout(timer);
     }, [selectedEmail]);
 
-    const renderEmails = (emailsToRender: Email[]) => (
-        emailsToRender && emailsToRender.map((email) => (
+    const handleEmailUpdate = (updatedEmail: Email) => {
+        setEmailList(prevEmails => prevEmails.map(email => email.id === updatedEmail.id ? updatedEmail : email));
+        if (selectedEmail && selectedEmail.id === updatedEmail.id) {
+            setSelectedEmail(updatedEmail);
+        }
+        if(selectedEmail && selectedEmail.read !== updatedEmail.read && !updatedEmail.read) {
+            setSelectedEmail(null);
+        }
+    };
+
+    const getUnreadEmails = () => {
+        return emailList.filter(email => !email.read);
+    }
+
+    const renderEmails = (filterUnread: boolean) => {
+        const emailsToRender = filterUnread ? getUnreadEmails() : emailList;
+        return emailsToRender && emailsToRender.map((email) => (
             <div key={email.id} onClick={() => setSelectedEmail(email)}>
-                <EmailListItem email={email} />
+                <EmailListItem email={email}/>
             </div>
-        ))
-    );
+        ));
+    }
 
     return (
         <div className="email-list-container flex">
@@ -54,15 +65,15 @@ export default function EmailList({ emails }: { emails: Email[] }) {
                         <TabsTrigger value="unread">Unread</TabsTrigger>
                     </TabsList>
                     <TabsContent value="all">
-                        {renderEmails(emails)}
+                        {renderEmails(false)}
                     </TabsContent>
                     <TabsContent value="unread">
-                        {renderEmails(unreadEmails)}
+                        {renderEmails(true)}
                     </TabsContent>
                 </Tabs>
             </div>
             <div className="email-detail w-1/2">
-                {selectedEmail && <EmailDetail email={selectedEmail} />}
+                {selectedEmail && <EmailDetail email={selectedEmail} onEmailUpdate={handleEmailUpdate} />}
             </div>
         </div>
     );
