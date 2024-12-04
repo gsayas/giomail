@@ -5,6 +5,7 @@ export async function markAsUnread(emailId: number) {
     return prisma.email.update({
         where: { id: emailId },
         data: { read: false },
+        include: { tags: true },
     });
 }
 
@@ -13,5 +14,6 @@ export async function markAsRead(emailId: number) {
     return prisma.email.update({
         where: { id: emailId },
         data: { read: true },
+        include: { tags: true },
     });
 }
