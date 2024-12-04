@@ -2,7 +2,10 @@
 
 ## Pre-requisites
 
-* Install Node 20 or above
+* Install and use Node 20 or above
+```
+nvm use 20
+```
 
 ## To check the app
 
@@ -12,7 +15,6 @@
 
 ```shellscript
 npx prisma migrate dev
-npx prisma db seed
 ```
 
 Then run the dev server
