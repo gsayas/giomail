@@ -3,6 +3,7 @@ import EmailListItem from "./EmailListItem";
 import EmailDetail from "~/components/email/detail/EmailDetail";
 import type { Email } from "~/domain/Email";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components/ui/tabs";
+import {post} from "~/lib/api";
 
 export default function EmailList({ emails }: { emails: Email[] }) {
     const [selectedTab, setSelectedTab] = useState<string>('all');
@@ -16,13 +17,7 @@ export default function EmailList({ emails }: { emails: Email[] }) {
                 setSelectedEmail(prev => prev ? { ...prev, read: true } : null);
 
                 // Call the API to update the email's read status in the backend
-                const response = await fetch("/email/read", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ emailId: selectedEmail.id }),
-                });
+                const response = await post("/email/read", { emailId: selectedEmail.id });
 
                 if (response.ok) {
                     const result = await response.json();

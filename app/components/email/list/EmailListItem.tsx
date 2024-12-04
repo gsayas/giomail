@@ -11,6 +11,7 @@ import type {Email} from "~/domain/Email";
 import Excerpt from "~/components/email/list/Excerpt";
 import {Badge} from "~/components/ui/badge";
 import {UnreadIcon} from "~/components/ui/icons";
+import {post} from "~/lib/api";
 
 interface EmailListItemProps {
     email: Email;
@@ -20,13 +21,7 @@ interface EmailListItemProps {
 export default function EmailListItem({email, onEmailUpdate}: EmailListItemProps) {
 
     const removeTag = async (tagId: number) => {
-        const response = await fetch("/email/tag/remove", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({emailId: email.id, tagId}),
-        });
+        const response = await post("/email/tag/remove", {emailId: email.id, tagId});
 
         if (response.ok) {
             const result = await response.json();

@@ -17,6 +17,7 @@ import { Input } from "~/components/ui/input"
 import { Button } from "~/components/ui/button"
 import type { Email } from "~/domain/Email";
 import MailUnreadLineIcon from 'remixicon-react/MailUnreadLineIcon';
+import {post} from "~/lib/api";
 
 interface EmailDetailProps {
     email: Email;
@@ -27,13 +28,7 @@ export default function EmailDetail({ email, onEmailUpdate }: EmailDetailProps) 
     const [newTag, setNewTag] = useState("");
 
     const markAsUnread = async () => {
-        const response = await fetch("/email/unread", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ emailId: email.id }),
-        });
+        const response = await post("/email/unread", { emailId: email.id });
 
         if (response.ok) {
             const result = await response.json();
@@ -42,13 +37,7 @@ export default function EmailDetail({ email, onEmailUpdate }: EmailDetailProps) 
     };
 
     const addTag = async () => {
-        const response = await fetch("/email/tag/add", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ emailId: email.id, tagName: newTag }),
-        });
+        const response = await post("/email/tag/add", { emailId: email.id, tagName: newTag })
 
         if (response.ok) {
             const result = await response.json();
