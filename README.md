@@ -39,6 +39,7 @@ npm run dev & npm run e2e
 - In general I like to use Jest + React Testing Library for components and hooks, especially the parent components (EmailList.ts in this case). I usually use Cypress for critical flows and pages.
 - If the backend starts to get complex, I would also add integration and unit tests for the useCases and the domain (business rules).
 Since this app is just a CRUD without much business logic, I didn't give them much priority. Also because the E2E tests are actually going all the way reaching the database.
+- In [this other repo](https://github.com/gsayas/example-node-backend/blob/main/src/test/payForJobUseCase.test.js) you can find more examples of the testing strategy I usually follow
 - In a real scenario I would also consider testing loaders and actions separately as described [here](https://sergiodxa.com/tutorials/test-remix-loaders-and-actions)
 
 
