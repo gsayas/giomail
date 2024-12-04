@@ -47,3 +47,7 @@ Since this app is just a CRUD without much business logic, I didn't give them mu
 - I tried to use the useFetcher Remix hook for the api calls, but I had a transpiling issue that made it fail in the Jest tests. I decided to use the fetch API directly to avoid the issue.
 - For bigger apps I would probably do a [Manual Route Configuration](https://remix.run/docs/fr/main/discussion/routes#manual-route-configuration) to have them in a more modular way.
 - [IMPORTANT] I also stumbled onto this [React/Remix Hydration issue](https://github.com/remix-run/remix/issues/4822) that is currently open. I implemented one of the workarounds described in the ticket and the problem got better, but still it made some of the E2E tests fail intermittently. Not sure if it affects production environments, but maybe it's worth checking it out. 
+
+## Screenshot
+
+![img.png](img.png)
