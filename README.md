@@ -1,5 +1,8 @@
 # Welcome to GioMail :D !!!
 
+## Pre-requisites
+
+* Install Node 20 or above
 
 ## To check the app
 
@@ -9,6 +12,7 @@
 
 ```shellscript
 npx prisma migrate dev
+npx prisma db seed
 ```
 
 Then run the dev server
@@ -25,7 +29,7 @@ npm run test
 ## To run the e2e tests
 
 ```shellscript
-npm run e2e
+npm run dev & npm run e2e
 ```
 
 
